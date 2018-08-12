@@ -30,7 +30,7 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 		fmt.Errorf("No se pudieron obrener los gifs &v", err)
 	}
 	fmt.Println(val)
-	return &pb.HelloReply{Message: "Hello " + in.Name + val.contenido}, nil
+	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
 }
 
 func (s *server) SayHelloAgain(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
