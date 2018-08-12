@@ -1,1 +1,0 @@
-console.log("this is were js file gone")
