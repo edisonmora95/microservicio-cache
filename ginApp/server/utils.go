@@ -6,9 +6,10 @@ import (
 		"os"
 		"runtime"
 		"path/filepath"
+		"encoding/base64"
 )
 
-func retrieve_buff_gif(path string) []byte {
+func retrieve_buff_gif(path string) string {
 
 		// maximize CPU usage for maximum performance
 		runtime.GOMAXPROCS(runtime.NumCPU())
@@ -21,7 +22,7 @@ func retrieve_buff_gif(path string) []byte {
 				os.Exit(1)
 		}
 
-		buff := make([]byte, 512) // why 512 bytes ? see http://golang.org/pkg/net/http/#DetectContentType
+		buff := make([]byte, 70000) // why 512 bytes ? see http://golang.org/pkg/net/http/#DetectContentType
 		_, err = file.Read(buff)
 
 		if err != nil {
@@ -35,7 +36,9 @@ func retrieve_buff_gif(path string) []byte {
 
 		defer file.Close()
 
-		return buff
+		imgBase64Str := base64.StdEncoding.EncodeToString(buff)
+
+		return imgBase64Str
 
 
 }
@@ -59,14 +62,13 @@ func getFilesScript(rootpath string) []string {
 	return list
 }
 
-func retrieve_all_gifs(folderPath string) [][]byte{
-	listAll:= make([][]byte, 0,10)
+func retrieve_all_gifs(folderPath string) []string{
+	listAll:= make([]string, 0,10)
 	list := getFilesScript("gifs/")
 	for _, p := range list {
 		temp := retrieve_buff_gif(p)
-		if temp != nil{
-			listAll = append(listAll, temp)
-		}
+		listAll = append(listAll, temp)
+
 		
 	}
 

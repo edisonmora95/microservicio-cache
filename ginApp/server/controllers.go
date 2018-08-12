@@ -25,7 +25,7 @@ func showIndexPage(c *gin.Context){
 
 func tenGifsJson (c *gin.Context){
 
-	file := retrieve_all_gifs("gifs/")
+	file := retrieve_all_gifs("gifs2/")
 	// Call the HTML method of the Context to render a template
 	c.JSON(
 		http.StatusOK,
@@ -41,14 +41,14 @@ func tenGifsJson (c *gin.Context){
 
 func tenGifsMysqlJson (c *gin.Context){
 	// Call the HTML method of the Context to render a template
-	c.HTML(
-		// Set the HTTP status to 200 (OK)
+	file := retrieve_all_gifs("gifs2/")
+	// Call the HTML method of the Context to render a template
+	c.JSON(
 		http.StatusOK,
-		// Use the index.html template
-		"index.html",
-		// Pass the data that the page uses (in this case, 'title')
 		gin.H{
-		"title": "Home Page",
+		"counter": 3,
+		"file": file,
+		"timestamp": 35,
 		},
-	)	
+	)		
 }
