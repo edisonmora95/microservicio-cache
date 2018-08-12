@@ -21,3 +21,34 @@ func showIndexPage(c *gin.Context){
 		},
 	)	
 }
+
+
+func tenGifsJson (c *gin.Context){
+
+	file := retrieve_all_gifs("gifs2/")
+	// Call the HTML method of the Context to render a template
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+		"counter": 3,
+		"file": file,
+		"timestamp": 35,
+		},
+	)	
+}
+
+
+
+func tenGifsMysqlJson (c *gin.Context){
+	// Call the HTML method of the Context to render a template
+	file := retrieve_all_gifs("gifs2/")
+	// Call the HTML method of the Context to render a template
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+		"counter": 3,
+		"file": file,
+		"timestamp": 35,
+		},
+	)		
+}
