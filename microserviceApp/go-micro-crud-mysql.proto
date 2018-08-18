@@ -1,0 +1,36 @@
+
+syntax = "proto3";
+
+package pb;
+
+service CRUD_MYSQ_SERVICE {
+  rpc crud(CrudRequest) returns (CrudResponse) {}
+}
+
+
+message ConnectionRequest 
+{
+	string conection_name = 1;
+	string user = 2;
+	string password = 3;
+	string databse = 4;
+}
+
+message Row {
+	int32 iud = ;
+	string titulo = 2;
+	string contenido = 3;
+	int32 contador = 4;
+}
+
+message CrudRequest {
+	repeated ConnectionRequest conn = 1;
+	string query = 2;
+}
+
+
+message CrudResponse {
+  string response = 1;
+  repeated Row rows = 2;
+  string error = 3;
+}
