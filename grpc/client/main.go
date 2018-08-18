@@ -20,8 +20,10 @@ package main
 
 import (
 	"log"
-	"os"
+	//"os"
 	"time"
+	"fmt"
+	"io"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -40,23 +42,27 @@ func main() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	c := pb.NewGreeterClient(conn)
+	c := pb.NewMicroClient(conn)
 
-	// Contact the server and print out its response.
-	name := defaultName
-	if len(os.Args) > 1 {
-		name = os.Args[1]
-	}
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second * 60)
 	defer cancel()
-	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
+
+	start := time.Now()
+	stream, err := c.Top10Gifs(ctx, &pb.RequestFecha{Fecha: start.Format("2006-01-02")})
+	end := time.Now()
+	fmt.Println(end.Sub(start))
 	if err != nil {
-		log.Fatalf("could not greet: %v", err)
+		log.Fatalf("could not get gif: %v", err)
 	}
-	log.Printf("Greeting: %s", r.Message)
-	r, err = c.SayHelloAgain(ctx, &pb.HelloRequest{Name: name})
-	if err != nil {
-	        log.Fatalf("could not greet: %v", err)
+	for {
+		gif, err := stream.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatalf("%v.ListFeatures(_) = _, %v", c, err)
+		}
+		log.Printf("Server: %s", gif)
 	}
-	log.Printf("Greeting: %s", r.Message)	
+	
 }

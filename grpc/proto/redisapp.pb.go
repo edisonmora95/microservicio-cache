@@ -23,87 +23,101 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-// The request message containing the user's name.
-type HelloRequest struct {
-	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+type RequestFecha struct {
+	Fecha                string   `protobuf:"bytes,1,opt,name=fecha,proto3" json:"fecha,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *HelloRequest) Reset()         { *m = HelloRequest{} }
-func (m *HelloRequest) String() string { return proto.CompactTextString(m) }
-func (*HelloRequest) ProtoMessage()    {}
-func (*HelloRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_redisapp_57a7fe9e5249634a, []int{0}
+func (m *RequestFecha) Reset()         { *m = RequestFecha{} }
+func (m *RequestFecha) String() string { return proto.CompactTextString(m) }
+func (*RequestFecha) ProtoMessage()    {}
+func (*RequestFecha) Descriptor() ([]byte, []int) {
+	return fileDescriptor_redisapp_33688db8bf86c8eb, []int{0}
 }
-func (m *HelloRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_HelloRequest.Unmarshal(m, b)
+func (m *RequestFecha) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RequestFecha.Unmarshal(m, b)
 }
-func (m *HelloRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_HelloRequest.Marshal(b, m, deterministic)
+func (m *RequestFecha) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RequestFecha.Marshal(b, m, deterministic)
 }
-func (dst *HelloRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_HelloRequest.Merge(dst, src)
+func (dst *RequestFecha) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RequestFecha.Merge(dst, src)
 }
-func (m *HelloRequest) XXX_Size() int {
-	return xxx_messageInfo_HelloRequest.Size(m)
+func (m *RequestFecha) XXX_Size() int {
+	return xxx_messageInfo_RequestFecha.Size(m)
 }
-func (m *HelloRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_HelloRequest.DiscardUnknown(m)
+func (m *RequestFecha) XXX_DiscardUnknown() {
+	xxx_messageInfo_RequestFecha.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_HelloRequest proto.InternalMessageInfo
+var xxx_messageInfo_RequestFecha proto.InternalMessageInfo
 
-func (m *HelloRequest) GetName() string {
+func (m *RequestFecha) GetFecha() string {
 	if m != nil {
-		return m.Name
+		return m.Fecha
 	}
 	return ""
 }
 
-// The response message containing the greetings
-type HelloReply struct {
-	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+type Gif struct {
+	Titulo               string   `protobuf:"bytes,1,opt,name=titulo,proto3" json:"titulo,omitempty"`
+	Contenido            string   `protobuf:"bytes,2,opt,name=contenido,proto3" json:"contenido,omitempty"`
+	Contador             int64    `protobuf:"varint,3,opt,name=contador,proto3" json:"contador,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *HelloReply) Reset()         { *m = HelloReply{} }
-func (m *HelloReply) String() string { return proto.CompactTextString(m) }
-func (*HelloReply) ProtoMessage()    {}
-func (*HelloReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_redisapp_57a7fe9e5249634a, []int{1}
+func (m *Gif) Reset()         { *m = Gif{} }
+func (m *Gif) String() string { return proto.CompactTextString(m) }
+func (*Gif) ProtoMessage()    {}
+func (*Gif) Descriptor() ([]byte, []int) {
+	return fileDescriptor_redisapp_33688db8bf86c8eb, []int{1}
 }
-func (m *HelloReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_HelloReply.Unmarshal(m, b)
+func (m *Gif) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Gif.Unmarshal(m, b)
 }
-func (m *HelloReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_HelloReply.Marshal(b, m, deterministic)
+func (m *Gif) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Gif.Marshal(b, m, deterministic)
 }
-func (dst *HelloReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_HelloReply.Merge(dst, src)
+func (dst *Gif) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Gif.Merge(dst, src)
 }
-func (m *HelloReply) XXX_Size() int {
-	return xxx_messageInfo_HelloReply.Size(m)
+func (m *Gif) XXX_Size() int {
+	return xxx_messageInfo_Gif.Size(m)
 }
-func (m *HelloReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_HelloReply.DiscardUnknown(m)
+func (m *Gif) XXX_DiscardUnknown() {
+	xxx_messageInfo_Gif.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_HelloReply proto.InternalMessageInfo
+var xxx_messageInfo_Gif proto.InternalMessageInfo
 
-func (m *HelloReply) GetMessage() string {
+func (m *Gif) GetTitulo() string {
 	if m != nil {
-		return m.Message
+		return m.Titulo
 	}
 	return ""
+}
+
+func (m *Gif) GetContenido() string {
+	if m != nil {
+		return m.Contenido
+	}
+	return ""
+}
+
+func (m *Gif) GetContador() int64 {
+	if m != nil {
+		return m.Contador
+	}
+	return 0
 }
 
 func init() {
-	proto.RegisterType((*HelloRequest)(nil), "redisapp.HelloRequest")
-	proto.RegisterType((*HelloReply)(nil), "redisapp.HelloReply")
+	proto.RegisterType((*RequestFecha)(nil), "redisapp.RequestFecha")
+	proto.RegisterType((*Gif)(nil), "redisapp.Gif")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -114,117 +128,151 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// GreeterClient is the client API for Greeter service.
+// MicroClient is the client API for Micro service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type GreeterClient interface {
-	// Sends a greeting
-	SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
-	SayHelloAgain(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
+type MicroClient interface {
+	// Devuelve el primer gif de una fecha enviada
+	// Devuelve nil si no hay gif en esa fecha
+	GetGif(ctx context.Context, in *RequestFecha, opts ...grpc.CallOption) (*Gif, error)
+	// Devuelve los top 10 gifs almacenados en redis
+	Top10Gifs(ctx context.Context, in *RequestFecha, opts ...grpc.CallOption) (Micro_Top10GifsClient, error)
 }
 
-type greeterClient struct {
+type microClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewGreeterClient(cc *grpc.ClientConn) GreeterClient {
-	return &greeterClient{cc}
+func NewMicroClient(cc *grpc.ClientConn) MicroClient {
+	return &microClient{cc}
 }
 
-func (c *greeterClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
-	out := new(HelloReply)
-	err := c.cc.Invoke(ctx, "/redisapp.Greeter/SayHello", in, out, opts...)
+func (c *microClient) GetGif(ctx context.Context, in *RequestFecha, opts ...grpc.CallOption) (*Gif, error) {
+	out := new(Gif)
+	err := c.cc.Invoke(ctx, "/redisapp.Micro/GetGif", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *greeterClient) SayHelloAgain(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
-	out := new(HelloReply)
-	err := c.cc.Invoke(ctx, "/redisapp.Greeter/SayHelloAgain", in, out, opts...)
+func (c *microClient) Top10Gifs(ctx context.Context, in *RequestFecha, opts ...grpc.CallOption) (Micro_Top10GifsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Micro_serviceDesc.Streams[0], "/redisapp.Micro/Top10Gifs", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &microTop10GifsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
 }
 
-// GreeterServer is the server API for Greeter service.
-type GreeterServer interface {
-	// Sends a greeting
-	SayHello(context.Context, *HelloRequest) (*HelloReply, error)
-	SayHelloAgain(context.Context, *HelloRequest) (*HelloReply, error)
+type Micro_Top10GifsClient interface {
+	Recv() (*Gif, error)
+	grpc.ClientStream
 }
 
-func RegisterGreeterServer(s *grpc.Server, srv GreeterServer) {
-	s.RegisterService(&_Greeter_serviceDesc, srv)
+type microTop10GifsClient struct {
+	grpc.ClientStream
 }
 
-func _Greeter_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HelloRequest)
+func (x *microTop10GifsClient) Recv() (*Gif, error) {
+	m := new(Gif)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// MicroServer is the server API for Micro service.
+type MicroServer interface {
+	// Devuelve el primer gif de una fecha enviada
+	// Devuelve nil si no hay gif en esa fecha
+	GetGif(context.Context, *RequestFecha) (*Gif, error)
+	// Devuelve los top 10 gifs almacenados en redis
+	Top10Gifs(*RequestFecha, Micro_Top10GifsServer) error
+}
+
+func RegisterMicroServer(s *grpc.Server, srv MicroServer) {
+	s.RegisterService(&_Micro_serviceDesc, srv)
+}
+
+func _Micro_GetGif_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RequestFecha)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GreeterServer).SayHello(ctx, in)
+		return srv.(MicroServer).GetGif(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/redisapp.Greeter/SayHello",
+		FullMethod: "/redisapp.Micro/GetGif",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreeterServer).SayHello(ctx, req.(*HelloRequest))
+		return srv.(MicroServer).GetGif(ctx, req.(*RequestFecha))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Greeter_SayHelloAgain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HelloRequest)
-	if err := dec(in); err != nil {
-		return nil, err
+func _Micro_Top10Gifs_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(RequestFecha)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(GreeterServer).SayHelloAgain(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/redisapp.Greeter/SayHelloAgain",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreeterServer).SayHelloAgain(ctx, req.(*HelloRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(MicroServer).Top10Gifs(m, &microTop10GifsServer{stream})
 }
 
-var _Greeter_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "redisapp.Greeter",
-	HandlerType: (*GreeterServer)(nil),
+type Micro_Top10GifsServer interface {
+	Send(*Gif) error
+	grpc.ServerStream
+}
+
+type microTop10GifsServer struct {
+	grpc.ServerStream
+}
+
+func (x *microTop10GifsServer) Send(m *Gif) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+var _Micro_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "redisapp.Micro",
+	HandlerType: (*MicroServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SayHello",
-			Handler:    _Greeter_SayHello_Handler,
-		},
-		{
-			MethodName: "SayHelloAgain",
-			Handler:    _Greeter_SayHelloAgain_Handler,
+			MethodName: "GetGif",
+			Handler:    _Micro_GetGif_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "Top10Gifs",
+			Handler:       _Micro_Top10Gifs_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "redisapp.proto",
 }
 
-func init() { proto.RegisterFile("redisapp.proto", fileDescriptor_redisapp_57a7fe9e5249634a) }
+func init() { proto.RegisterFile("redisapp.proto", fileDescriptor_redisapp_33688db8bf86c8eb) }
 
-var fileDescriptor_redisapp_57a7fe9e5249634a = []byte{
-	// 155 bytes of a gzipped FileDescriptorProto
+var fileDescriptor_redisapp_33688db8bf86c8eb = []byte{
+	// 189 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2b, 0x4a, 0x4d, 0xc9,
-	0x2c, 0x4e, 0x2c, 0x28, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x80, 0xf1, 0x95, 0x94,
-	0xb8, 0x78, 0x3c, 0x52, 0x73, 0x72, 0xf2, 0x83, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0x84,
-	0xb8, 0x58, 0xf2, 0x12, 0x73, 0x53, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0xc0, 0x6c, 0x25,
-	0x35, 0x2e, 0x2e, 0xa8, 0x9a, 0x82, 0x9c, 0x4a, 0x21, 0x09, 0x2e, 0xf6, 0xdc, 0xd4, 0xe2, 0xe2,
-	0xc4, 0x74, 0x98, 0x22, 0x18, 0xd7, 0xa8, 0x8d, 0x91, 0x8b, 0xdd, 0xbd, 0x28, 0x35, 0xb5, 0x24,
-	0xb5, 0x48, 0xc8, 0x8a, 0x8b, 0x23, 0x38, 0xb1, 0x12, 0xac, 0x4d, 0x48, 0x4c, 0x0f, 0x6e, 0x3d,
-	0xb2, 0x5d, 0x52, 0x22, 0x18, 0xe2, 0x05, 0x39, 0x95, 0x4a, 0x0c, 0x42, 0xf6, 0x5c, 0xbc, 0x30,
-	0xbd, 0x8e, 0xe9, 0x89, 0x99, 0x79, 0xa4, 0x1a, 0x90, 0xc4, 0x06, 0xf6, 0xa5, 0x31, 0x20, 0x00,
-	0x00, 0xff, 0xff, 0x82, 0x86, 0xde, 0x61, 0xf7, 0x00, 0x00, 0x00,
+	0x2c, 0x4e, 0x2c, 0x28, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x80, 0xf1, 0x95, 0x54,
+	0xb8, 0x78, 0x82, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0xdc, 0x52, 0x93, 0x33, 0x12, 0x85, 0x44,
+	0xb8, 0x58, 0xd3, 0x40, 0x0c, 0x09, 0x46, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x08, 0x47, 0x29, 0x9c,
+	0x8b, 0xd9, 0x3d, 0x33, 0x4d, 0x48, 0x8c, 0x8b, 0xad, 0x24, 0xb3, 0xa4, 0x34, 0x27, 0x1f, 0x2a,
+	0x0b, 0xe5, 0x09, 0xc9, 0x70, 0x71, 0x26, 0xe7, 0xe7, 0x95, 0xa4, 0xe6, 0x65, 0xa6, 0xe4, 0x4b,
+	0x30, 0x81, 0xa5, 0x10, 0x02, 0x42, 0x52, 0x5c, 0x1c, 0x20, 0x4e, 0x62, 0x4a, 0x7e, 0x91, 0x04,
+	0xb3, 0x02, 0xa3, 0x06, 0x73, 0x10, 0x9c, 0x6f, 0x54, 0xc4, 0xc5, 0xea, 0x9b, 0x99, 0x5c, 0x94,
+	0x2f, 0x64, 0xc8, 0xc5, 0xe6, 0x9e, 0x5a, 0x02, 0xb6, 0x44, 0x0f, 0xee, 0x58, 0x64, 0x97, 0x49,
+	0xf1, 0x22, 0xc4, 0xdd, 0x33, 0xd3, 0x94, 0x18, 0x84, 0xcc, 0xb8, 0x38, 0x43, 0xf2, 0x0b, 0x0c,
+	0x0d, 0xdc, 0x33, 0xd3, 0x8a, 0x89, 0xd6, 0x65, 0xc0, 0x98, 0xc4, 0x06, 0x0e, 0x03, 0x63, 0x40,
+	0x00, 0x00, 0x00, 0xff, 0xff, 0xd1, 0x6a, 0x18, 0x3b, 0x15, 0x01, 0x00, 0x00,
 }

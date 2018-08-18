@@ -3,10 +3,14 @@ package main
 import (
 	"fmt"
 	"runtime"
+	"time"
 	"os"
-	"github.com/go-redis/redis"
+	"strconv"
+	"encoding/json"
 	"encoding/base64"
 	"path/filepath"
+
+	"github.com/go-redis/redis"
 )
 
 // Esta funcion maneja los errores
@@ -61,8 +65,15 @@ func RetrieveAllGifs(folderPath string) []string{
 	return listAll
 }
 
+type Gif struct {
+	Titulo string
+	Contenido string
+	Contador int64
+}
+
 func main() {
-	path := "./"
+	today := time.Now().Format("2006-01-02")
+	path := "./gifs"
 	list := RetrieveAllGifs(path)
 	client := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
@@ -72,10 +83,19 @@ func main() {
 	fmt.Println("Cliente conectado")
 	for index, gif := range list {
         fmt.Printf("ALMACENANDO EL GIF #%d\n", (index + 1))
-        client.ZAdd("gifs", redis.Z{
+        nombre := "gif-" + strconv.Itoa(index)
+        gifStruct := &Gif{Titulo: nombre, Contenido: gif, Contador: int64(index+1)}
+        gifMarshal, err := json.Marshal(gifStruct)
+        check(err)
+        client.LPush(today, gifMarshal)
+        /*client.HMSet(nombre, map[string]interface{}{
+        	"contenido": gif,
+        	"contador": float64(index+1),
+    	})*/
+        /* client.ZAdd("gifs", redis.Z{
 			Score: float64(index+1),
 			Member: gif,
-		})
+		}) */
 		fmt.Println("Gif guardado en redis")
         fmt.Println("***********************************************")
     }
