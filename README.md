@@ -22,4 +22,24 @@ Para probar con un cliente stub
 go run grpc/client/main.go
 ```
 
-Para poder correr el servidor debe estar instalado redis y go-redis
+## Pre-requisitos
+
+Instalar net
+```
+go get -u golang.org/x/net
+```
+Instalar go-sql-driver
+```
+go get -u github.com/go-sql-driver/mysql
+```
+Instalar go-redis
+```
+go get -u github.com/go-redis/redis
+```
+Instalar grpc-go
+```
+go get -u google.golang.org/grpc
+```
+
+
+Nota: Para poder correr el servidor debe estar instalado redis

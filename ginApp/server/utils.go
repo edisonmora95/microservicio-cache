@@ -6,8 +6,12 @@ import (
 		"os"
 		"runtime"
 		"path/filepath"
-		"encoding/base64"
+
 )
+
+import _ "github.com/go-sql-driver/mysql"
+
+db, err := sql.Open("mysql", "user:password@/dbname")
 
 func retrieve_buff_gif(path string) string {
 
