@@ -11,6 +11,10 @@
 		.container-fluid{
 			margin-top:0.5%;			
 		}
+
+		.card{
+			margin-left: 5%;
+		}
 	</style>
 	<title>Top 10 gifs</title>
 </head>
@@ -21,7 +25,7 @@
 		  <div class="container">
 		    <h1 class="display-4">Top 10 Gifs</h1>
 		    <p title="About top 10 gifs" class="lead">Click the button to see the current top 10 gifs.</p>
-		    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+		    <a class="btn btn-primary btn-lg" id="buttonRedis" href="#" role="button">Learn more</a>
 		  </div>
 		</div>
 		<section>
@@ -60,11 +64,17 @@
 	<div id="scriptSection">
 		<script>
 				$( document ).ready(function() {
+					$( ".list-unstyled" ).empty();
+					$( "#buttonRedis" ).click(give10RedisGifs);
+				});
+
+				function give10RedisGifs(){
 					$.get( "/api/tenGifs", function( data ) {
 						console.log( "Data Loaded: " + data );
 						//document.getElementById("myImage").src=="data:image/gif;"+data["file"][0];
 						for (var i =0; i< data["file"].length; i++){
 							$(".list-unstyled").append(`
+							<hr>
 							<li class="media">
 									<img class="mr-3" src="data:image/gif;base64,` + data["file"][i] +`" alt="Generic placeholder image">
 							</li>
@@ -72,7 +82,8 @@
 						}
 
 					});
-				});
+
+				}
 		</script>
 	</div>
 </body>

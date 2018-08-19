@@ -28,7 +28,7 @@ func RetrieveBuffGif(path string) string {
 	file, err := os.Open(path)
 	check(err)
 
-	buff := make([]byte, 70000) // why 512 bytes ? see http://golang.org/pkg/net/http/#DetectContentType
+	buff := make([]byte, 1000000) // why 512 bytes ? see http://golang.org/pkg/net/http/#DetectContentType
 	_, err = file.Read(buff)
 	check(err)
 
@@ -73,7 +73,7 @@ type Gif struct {
 
 func main() {
 	today := time.Now().Format("2006-01-02")
-	path := "./ginApp/server/gifs"
+	path := "./ginApp/server/gifsWithSize"
 	list := RetrieveAllGifs(path)
 	client := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
