@@ -5,13 +5,18 @@ package redisapp;
 service Micro {
   // Devuelve el primer gif de una fecha enviada
   // Devuelve nil si no hay gif en esa fecha
-  rpc GetGif (RequestFecha) returns (Gif) {}
+  rpc GetGif (RequestGif) returns (Gif) {}
   // Devuelve los top 10 gifs almacenados en redis
   rpc Top10Gifs (RequestFecha) returns (stream Gif) {}
 }
 
 message RequestFecha {
   string fecha = 1;
+}
+
+message RequestGif {
+	string fecha = 1;
+	string nombre = 2;
 }
 
 message Gif {

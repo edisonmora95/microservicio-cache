@@ -10,7 +10,7 @@ Basado en el proto que se encuentra en grpc/proto/redisapp.proto
 
 Se puede volver a generar el código con:
 ```
-protoc -I proto/ proto/redisapp.proto --go_out=plugins=grpc:proto
+protoc -I grpc/proto/ grpc/proto/redisapp.proto --go_out=plugins=grpc:grpc/proto
 ```
 
 Para correr el servidor

@@ -23,7 +23,7 @@ import (
 	//"os"
 	"time"
 	"fmt"
-	"io"
+	//"io"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -48,6 +48,29 @@ func main() {
 	defer cancel()
 
 	start := time.Now()
+	/*stream, err := c.Top10Gifs(ctx, &pb.RequestFecha{Fecha: time.Now().Format("2006-01-02")})
+	end := time.Now()
+	fmt.Println(end.Sub(start))
+	if err != nil {
+		log.Fatalf("could not get gif: %v", err)
+	}
+	for {
+		gif, err := stream.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatalf("%v.ListFeatures(_) = _, %v", c, err)
+		}
+		log.Printf("Server: %s", gif.Contenido)
+	}*/
+	gif, err := c.GetGif(ctx,  &pb.RequestGif{Fecha: time.Now().Format("2006-01-02"), Nombre: "giphy (8)"})
+	end := time.Now()
+	fmt.Println(end.Sub(start))
+	log.Println(gif)
+}
+
+/*func Top10Gifs (c ) {
 	stream, err := c.Top10Gifs(ctx, &pb.RequestFecha{Fecha: time.Now().Format("2006-01-02")})
 	end := time.Now()
 	fmt.Println(end.Sub(start))
@@ -64,5 +87,5 @@ func main() {
 		}
 		log.Printf("Server: %s", gif.Contenido)
 	}
-	
 }
+*/
