@@ -6,12 +6,14 @@ import (
 		"os"
 		"runtime"
 		"path/filepath"
+		"encoding/base64"
 
 )
-
+/*
 import _ "github.com/go-sql-driver/mysql"
 
 db, err := sql.Open("mysql", "user:password@/dbname")
+*/
 
 func retrieve_buff_gif(path string) string {
 
@@ -80,4 +82,6 @@ func retrieve_all_gifs(folderPath string) []string{
 
 	return listAll
 }
+
+
 

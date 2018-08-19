@@ -12,5 +12,8 @@ func initializeRoutes() {
 
   //Handle json response of 10 queries (mysql)
   router.GET("/api/tenGifsMysql", tenGifsMysqlJson)
+
+  //Handle to receive one gif
+  //router.GET("/api/gif/:gif", retrietOneGif)
   
 }

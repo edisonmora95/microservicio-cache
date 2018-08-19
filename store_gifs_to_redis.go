@@ -73,7 +73,7 @@ type Gif struct {
 
 func main() {
 	today := time.Now().Format("2006-01-02")
-	path := "./gifs"
+	path := "./ginApp/server/gifs"
 	list := RetrieveAllGifs(path)
 	client := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",

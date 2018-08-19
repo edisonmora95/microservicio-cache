@@ -25,7 +25,8 @@ func showIndexPage(c *gin.Context){
 
 func tenGifsJson (c *gin.Context){
 
-	file := retrieve_all_gifs("gifs2/")
+	//file := retrieve_all_gifs("gifs2/")
+	file := retrieve_all_redis_gifs()
 	// Call the HTML method of the Context to render a template
 	c.JSON(
 		http.StatusOK,
@@ -52,3 +53,21 @@ func tenGifsMysqlJson (c *gin.Context){
 		},
 	)		
 }
+/*
+func retrietOneGif (c *gin.Context){
+	gif  := c.Param("article_id")
+
+	//functionToRetrietGif
+
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+		"counter": 3,
+		"file": file,
+		"timestamp": 35,
+		},
+	)	
+
+
+}
+*/
