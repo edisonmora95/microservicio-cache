@@ -48,7 +48,7 @@ func main() {
 	defer cancel()
 
 	start := time.Now()
-	stream, err := c.Top10Gifs(ctx, &pb.RequestFecha{Fecha: start.Format("2006-01-02")})
+	stream, err := c.Top10Gifs(ctx, &pb.RequestFecha{Fecha: time.Now().Format("2006-01-02")})
 	end := time.Now()
 	fmt.Println(end.Sub(start))
 	if err != nil {
@@ -62,7 +62,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("%v.ListFeatures(_) = _, %v", c, err)
 		}
-		log.Printf("Server: %s", gif)
+		log.Printf("Server: %s", gif.Contenido)
 	}
 	
 }

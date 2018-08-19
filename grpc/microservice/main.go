@@ -30,7 +30,7 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestFecha) (*pb.Gif, erro
 		Password: "",
 		DB: 0,
 	})
-	val, err := client.LRange(in.Fecha, 0, -1).Result()
+	val, _ := client.LRange(in.Fecha, 0, -1).Result()
 	if len(val) == 0 {
 		fmt.Println("No se encontró el gif en redis. Debe conectarse a mysql aquí.")
 		end := time.Now()
@@ -58,6 +58,7 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestFecha) (*pb.Gif, erro
 
 func (s *server) Top10Gifs(in *pb.RequestFecha, stream pb.Micro_Top10GifsServer) error {
 	// Primero se conecta a redis
+	start := time.Now()
 	client := redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
 		Password: "",
