@@ -48,6 +48,7 @@ func main() {
 	defer cancel()
 
 	start := time.Now()
+	// Obtener todos los gifs por stream
 	/*stream, err := c.Top10Gifs(ctx, &pb.RequestFecha{Fecha: time.Now().Format("2006-01-02")})
 	end := time.Now()
 	fmt.Println(end.Sub(start))
@@ -64,6 +65,7 @@ func main() {
 		}
 		log.Printf("Server: %s", gif.Contenido)
 	}*/
+	// Obtener un solo gif por nombre
 	gif, err := c.GetGif(ctx,  &pb.RequestGif{Fecha: time.Now().Format("2006-01-02"), Nombre: "giphy (8)"})
 	end := time.Now()
 	fmt.Println(end.Sub(start))

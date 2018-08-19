@@ -8,6 +8,7 @@ import (
 	// "os"
 	"encoding/json"
 	//"strconv"
+	"errors"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -46,6 +47,7 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestGif) (*pb.Gif, error)
 		err := json.Unmarshal([]byte(gifStr), &tempGif) // Los gifs se encuentran serializados en redis, por lo que hay que deserializar
 		if err != nil {
 			fmt.Println("There was an error:", err)
+			return &gif, err
 		}
 		if gif.Titulo == in.Nombre {
 			end := time.Now()
@@ -56,7 +58,7 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestGif) (*pb.Gif, error)
 	}
 	end := time.Now()
 	fmt.Println(end.Sub(start))
-	return &gif, nil
+	return &gif, errors.new("Gif no encontrado")
 }
 
 func (s *server) Top10Gifs(in *pb.RequestFecha, stream pb.Micro_Top10GifsServer) error {
