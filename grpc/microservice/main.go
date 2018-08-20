@@ -105,7 +105,7 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestGif) (*pb.Gif, error)
 		fmt.Errorf("No se pudieron obrener los gifs &v", err)
 		return &gif, err
 	}
-	if len(val) == 0 {
+	if len(val) == 0 /*|| val == nil*/{
 		fmt.Println("No se encontró el gif en redis. Debe conectarse a mysql aquí.")
 		end := time.Now()
 		fmt.Println(end.Sub(start))
@@ -116,13 +116,13 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestGif) (*pb.Gif, error)
 		return &gif, nil	
 	}	
 
-	for _, gifStr := range val {
+	for _, gifStr := range val {		
 		err := json.Unmarshal([]byte(gifStr), &tempGif) // Los gifs se encuentran serializados en redis, por lo que hay que deserializar
 		if err != nil {
 			fmt.Println("There was an error:", err)
 			return &gif, err
 		}
-		if gif.Titulo == in.Nombre {
+		if tempGif.Titulo == in.Nombre {
 			end := time.Now()
 			fmt.Println(end.Sub(start))
 			gif = tempGif
@@ -131,7 +131,7 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestGif) (*pb.Gif, error)
 	}
 	end := time.Now()
 	fmt.Println(end.Sub(start))
-	return &gif, errors.new("Gif no encontrado")
+	return &gif, errors.New("Gif no encontrado")
 }
 
 func (s *server) Top10Gifs(in *pb.RequestFecha, stream pb.Micro_Top10GifsServer) error {

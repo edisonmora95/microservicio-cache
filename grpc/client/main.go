@@ -23,7 +23,7 @@ import (
 	//"os"
 	"time"
 	"fmt"
-	//"io"
+	"io"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -49,7 +49,8 @@ func main() {
 
 	start := time.Now()
 	// Obtener todos los gifs por stream
-	/*stream, err := c.Top10Gifs(ctx, &pb.RequestFecha{Fecha: time.Now().Format("2006-01-02")})
+	/*
+	stream, err := c.Top10Gifs(ctx, &pb.RequestFecha{Fecha: time.Now().Format("2006-01-02")})
 	end := time.Now()
 	fmt.Println(end.Sub(start))
 	if err != nil {
@@ -63,16 +64,32 @@ func main() {
 		if err != nil {
 			log.Fatalf("%v.ListFeatures(_) = _, %v", c, err)
 		}
-		log.Printf("Server: %s", gif.Contenido)
+		//log.Printf("Server: %s", gif.Titulo)
+		//log.Println()
+		log.Printf(gif.Titulo)
 	}*/
 	// Obtener un solo gif por nombre
-	gif, err := c.GetGif(ctx,  &pb.RequestGif{Fecha: time.Now().Format("2006-01-02"), Nombre: "giphy (8)"})
+	
+	gif, err := c.GetGif(ctx,  &pb.RequestGif{Fecha: time.Now().Format("2006-01-02"), Nombre: "gif-7"})
 	end := time.Now()
 	fmt.Println(end.Sub(start))
-	log.Println(gif)
+	log.Println(gif.Titulo)
+	
 }
 
-/*func Top10Gifs (c ) {
+func Top10Gifs ( ) {
+	// Set up a connection to the server.
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+	c := pb.NewMicroClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second * 60)
+	defer cancel()
+
+	start := time.Now()
 	stream, err := c.Top10Gifs(ctx, &pb.RequestFecha{Fecha: time.Now().Format("2006-01-02")})
 	end := time.Now()
 	fmt.Println(end.Sub(start))
@@ -90,4 +107,3 @@ func main() {
 		log.Printf("Server: %s", gif.Contenido)
 	}
 }
-*/
