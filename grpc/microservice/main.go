@@ -29,6 +29,12 @@ const (
 
 type server struct{}
 
+
+func checkErr(err error) {
+    if err != nil {
+        panic(err)
+    }
+}
 //returns top 10 gifs rows from MYSQL
 func RetrieveGifsFromDB(user, password, database string) ([10]pb.Gif, error) {
 	var gifs [10]pb.Gif
@@ -43,7 +49,7 @@ func RetrieveGifsFromDB(user, password, database string) ([10]pb.Gif, error) {
     	
             var titulo string
             var contenido string
-            var contador int
+            var contador int64
             err = rows.Scan(&titulo, &contenido, &contador)
             checkErr(err)
             gif :=  pb.Gif{}
@@ -57,14 +63,8 @@ func RetrieveGifsFromDB(user, password, database string) ([10]pb.Gif, error) {
             fmt.Println(gif)
             i++
         } 
+    checkErr(err)
 
-
-    
-
-    if err != nil {
-
-    	return nil, err
-    }
     return gifs, nil
 }
 
@@ -78,13 +78,11 @@ func GetGifFromDB(user, password, database, titulo string) (pb.Gif, error){
 
     db.Close()
     var gif pb.Gif
-    var titulo string
+    var title string
     var contenido string
-    var contador int
-    err = rows.Scan(&titulo, &contenido, &contador) 
-    if err != nil {
-    	return nil, err
-    }
+    var contador int64
+    err = row.Scan(&title, &contenido, &contador) 
+    checkErr(err)
     gif.Titulo = titulo
     gif.Contenido = contenido
     gif.Contador = contador
@@ -115,8 +113,9 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestGif) (*pb.Gif, error)
 		if err != nil {
 			return nil, err
 		}
-		return gif, nil	
+		return &gif, nil	
 	}	
+
 	for _, gifStr := range val {
 		err := json.Unmarshal([]byte(gifStr), &tempGif) // Los gifs se encuentran serializados en redis, por lo que hay que deserializar
 		if err != nil {
@@ -159,6 +158,7 @@ func (s *server) Top10Gifs(in *pb.RequestFecha, stream pb.Micro_Top10GifsServer)
 			// Envia uno por uno los gifs por el stream
 			if err := stream.Send(&gif); err != nil {
 				return err
+			}
 		}
 		return nil	
 	}
