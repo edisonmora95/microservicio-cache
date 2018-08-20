@@ -1,0 +1,86 @@
+<!doctype HTML>
+<html lang="en-US">
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+	<style>
+		.container-fluid{
+			margin-top:0.5%;			
+		}
+
+		.card{
+			margin-left: 5%;
+		}
+	</style>
+	<title>Retrieve one gif</title>
+</head>
+
+<body>
+	<div class="container-fluid center">
+		<div class="jumbotron jumbotron-fluid">
+		  <div class="container">
+				<h1 class="display-4">Retrieve one gif</h1>
+				<p title="Gif" class="lead">Click the button to see that gif.</p>
+				<form>
+					<div class="form-group">
+						<label for="retrieveGif">Gif name</label>
+						<input type="text" class="form-control" id="gifName"  placeholder="Enter gif name">
+					</div>
+					<a class="btn btn-primary btn-lg" id="buttonRedis" href="#" role="button">Give me the gif</a>
+				</form>
+		  </div>
+		</div>
+		<section>
+				
+				<ul class="list-unstyled">
+				</ul>
+			
+
+			
+		</section>	
+	</div>
+	<div id="scriptSection">
+		<script>
+				$( document ).ready(function() {
+					$( ".list-unstyled" ).empty();
+					$( "#buttonRedis" ).click(give10RedisGifs);
+				});
+
+				function give10RedisGifs(){
+					$( ".list-unstyled" ).empty();
+					var gif = $("#gifName").val();
+					var path = "/api/gif/" + gif;
+					$.get( path, function( data ) {
+						console.log( "Data Loaded: " + data );
+
+                        $(".list-unstyled").append(`
+                        <hr>
+                        <li class="media">
+													<div class="row">
+														<div class="col-sm-12 col-md-12">
+															name : ` + data["name"]+ `
+														</div>
+														<div class="col-sm-12 col-md-12">
+															counter : ` + data["counter"]+ `
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12 col-md-12">															
+															<img class="mr-12" src="data:image/gif;base64,` + data["file"] +`" alt="Generic placeholder image">
+														</div>
+
+													</div>
+                        </li>
+                        `)
+
+
+					});
+
+				}
+		</script>
+	</div>
+</body>
+</html>

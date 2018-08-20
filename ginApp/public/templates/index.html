@@ -25,39 +25,14 @@
 		  <div class="container">
 		    <h1 class="display-4">Top 10 Gifs</h1>
 		    <p title="About top 10 gifs" class="lead">Click the button to see the current top 10 gifs.</p>
-		    <a class="btn btn-primary btn-lg" id="buttonRedis" href="#" role="button">Learn more</a>
+		    <a class="btn btn-primary btn-lg" id="buttonRedis" href="#" role="button">Give me the gifs!</a>
 		  </div>
 		</div>
 		<section>
-			<div class="card" style="width: 18rem;">
 				
 				<ul class="list-unstyled">
-					<!--
-				  <li class="media">
-				    <img id="myImage" class="mr-3"  alt="Generic placeholder image">
-				    <div class="media-body">
-				      <h5 class="mt-0 mb-1">List-based media object</h5>
-				      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-				    </div>
-				  </li>
-				  <li class="media my-4">
-				    <img class="mr-3" src=".../64x64" alt="Generic placeholder image">
-				    <div class="media-body">
-				      <h5 class="mt-0 mb-1">List-based media object</h5>
-				      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-				    </div>
-				  </li>
-				  <li class="media">
-				    <img class="mr-3" src=".../64x64" alt="Generic placeholder image">
-				    <div class="media-body">
-				      <h5 class="mt-0 mb-1">List-based media object</h5>
-				      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-				    </div>
-					</li>
-					-->
 				</ul>
-			
-			</div>
+
 			
 		</section>	
 	</div>
@@ -69,6 +44,7 @@
 				});
 
 				function give10RedisGifs(){
+					$( ".list-unstyled" ).empty();
 					$.get( "/api/tenGifs", function( data ) {
 						console.log( "Data Loaded: " + data );
 						//document.getElementById("myImage").src=="data:image/gif;"+data["file"][0];

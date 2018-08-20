@@ -83,12 +83,12 @@ func main() {
 	fmt.Println("Cliente conectado")
 	for index, gif := range list {
         fmt.Printf("ALMACENANDO EL GIF #%d\n", (index + 1))
-        nombre := "gif-" + strconv.Itoa(index)
+		nombre := "gif-" + strconv.Itoa(index)
         gifStruct := &Gif{Titulo: nombre, Contenido: gif, Contador: int64(index+1)}
         gifMarshal, err := json.Marshal(gifStruct)
         check(err)
-        client.LPush(today, gifMarshal)
-        /*client.HMSet(nombre, map[string]interface{}{
+		client.LPush(today, gifMarshal)
+		/*client.HMSet(nombre, map[string]interface{}{
         	"contenido": gif,
         	"contador": float64(index+1),
     	})*/

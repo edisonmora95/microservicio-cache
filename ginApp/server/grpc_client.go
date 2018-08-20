@@ -71,6 +71,29 @@
 	
 
  }
+
+ func retrieve_one_gif( str_id string) Gif{
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+	c := pb.NewMicroClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second * 60)
+	defer cancel()
+
+	start := time.Now()
+	//gif, err := c.GetGif(ctx,  &pb.RequestGif{Fecha: time.Now().Format("2006-01-02"), Nombre: "giphy (8)"})
+	gif, err := c.GetGif(ctx,  &pb.RequestGif{Fecha: time.Now().Format("2006-01-02"), Nombre: str_id })
+	end := time.Now()
+	fmt.Println(end.Sub(start))
+	return Gif{ Titulo: gif.Titulo, Contenido: gif.Contenido, Contador: gif.Contador}
+
+
+ }
+
+
  
  
  
