@@ -5,7 +5,13 @@ Implementación de un microservicio de una caché para reducir latencia de acces
 
 ## Pre-requisitos
 
-### Dependencias de Go
+### Go y sus dependencias
+
+El proyecto esta hecho en Go tanto en el servidor web como en el microservicio por lo que es necesario instalar go. Para ello seguir instrucciones de la página oficial
+
+https://golang.org/doc/install 
+
+Una vez instalado seguir con las dependencias
 
 Instalar net
 ```
