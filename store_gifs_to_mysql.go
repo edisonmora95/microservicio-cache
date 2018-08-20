@@ -12,7 +12,37 @@ import (
 import "database/sql"
 import _ "github.com/go-sql-driver/mysql"
 
+const (
+	//MYSQL constants modify as needed
+	mysqluser = "root"
+	mysqlpassword = "root"
+	mysqldatabase = "topgifs"
+)
 
+
+func createDB(){
+
+   db, err := sql.Open("mysql", mysqluser + ":" + mysqlpassword +"@tcp(127.0.0.1:3306)/")
+   if err != nil {
+       panic(err)
+   }
+   defer db.Close()
+
+   _,err = db.Exec("CREATE DATABASE " + mysqldatabase)
+   if err != nil {
+       panic(err)
+   }
+
+   _,err = db.Exec("USE " + mysqldatabase)
+   if err != nil {
+       panic(err)
+   }
+
+   _,err = db.Exec("Create table gifs (id int(10) key not null auto_increment, titulo VARCHAR(64) not null, contenido longblob not null, contador BIGINT not null )")
+   if err != nil {
+       panic(err)
+   }
+}
 
 func RetrieveBuffGif(path string) string {
 	// maximize CPU usage for maximum performance
@@ -65,10 +95,13 @@ func checkErr(err error) {
 }
 
 func main(){
+
+	createDB()
 	path := "./ginApp/server/gifsWithSize"
+
 	list:= RetrieveAllGifs(path)
 
-    db, err := sql.Open("mysql", "root:root@/topgifs")
+    db, err := sql.Open("mysql", mysqluser + ":" + mysqlpassword +"@/" + mysqldatabase)
 	checkErr(err)
 
 	for index, gif:=range list {
@@ -82,10 +115,10 @@ func main(){
         res, err := stmt.Exec("gif-" + strconv.Itoa(index), gif, (index + 1))
         checkErr(err)
 
-        //id, err := res.LastInsertId()
-        //checkErr(err)
+        id, err := res.LastInsertId()
+        checkErr(err)
 
-        fmt.Println(res)
+         fmt.Println(id)
         fmt.Println("Gif guardado en mysql")
         fmt.Println("***********************************************")
 	}
