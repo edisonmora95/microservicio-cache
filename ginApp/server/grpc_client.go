@@ -63,7 +63,7 @@
 		if err != nil {
 			log.Fatalf("%v.ListFeatures(_) = _, %v", c, err)
 		}
-		log.Printf("Server: %s", gif)
+		//log.Printf("Server: %s", gif)
 		listAll = append(listAll, gif.Contenido)
 	}
 

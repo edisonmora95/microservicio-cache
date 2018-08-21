@@ -15,7 +15,7 @@ import _ "github.com/go-sql-driver/mysql"
 const (
 	//MYSQL constants modify as needed
 	mysqluser = "root"
-	mysqlpassword = "root"
+	mysqlpassword = "sistDisrib95mrv&"
 	mysqldatabase = "topgifs"
 )
 

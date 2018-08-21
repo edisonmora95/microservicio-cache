@@ -23,7 +23,7 @@ const (
 	port = ":50051"
 	//MYSQL constants
 	mysqluser = "root"
-	mysqlpassword = "root"
+	mysqlpassword = "sistDisrib95mrv&"
 	mysqldatabase = "topgifs"
 )
 
@@ -43,7 +43,7 @@ func RetrieveGifsFromDB(user, password, database string) ([10]pb.Gif, error) {
 	// query: get me the top ten gifs on the database
     rows, err := db.Query("SELECT titulo, contenido, contador FROM gifs ORDER BY contador DESC LIMIT 10")
     checkErr(err)
-    db.Close()
+    defer db.Close()
     i := 0
     for rows.Next() {
     	
@@ -56,11 +56,11 @@ func RetrieveGifsFromDB(user, password, database string) ([10]pb.Gif, error) {
             gif.Titulo = titulo
             gif.Contenido = contenido
             gif.Contador = contador
-            fmt.Println(titulo)
-            fmt.Println(contenido)
-            fmt.Println(contador)
+            //fmt.Println(titulo)
+            //fmt.Println(contenido)
+            //fmt.Println(contador)
             gifs[i] = gif
-            fmt.Println(gif)
+            //fmt.Println(gif)
             i++
         } 
     checkErr(err)
@@ -69,19 +69,24 @@ func RetrieveGifsFromDB(user, password, database string) ([10]pb.Gif, error) {
 }
 
 //returns a gif row from MYSQL given the gif's title
-func GetGifFromDB(user, password, database, titulo string) (pb.Gif, error){
+func GetGifFromDB(user, password, database, name string) (pb.Gif, error){
 	db, err := sql.Open("mysql", user + ":" + password +"@/" + database)
 	checkErr(err)
 
-	row, err := db.Query("SELECT titulo, contenido, contador FROM gifs where titulo = ?", titulo)
-    checkErr(err)
+	row := db.QueryRow("SELECT titulo, contenido, contador FROM gifs where titulo = ?", name)
+	checkErr(err)
+	
 
-    db.Close()
+
+    defer db.Close()
     var gif pb.Gif
-    var title string
+    var titulo string
     var contenido string
     var contador int64
-    err = row.Scan(&title, &contenido, &contador) 
+	err = row.Scan(&titulo, &contenido, &contador) 
+	if err == sql.ErrNoRows{
+		return gif, err
+	}
     checkErr(err)
     gif.Titulo = titulo
     gif.Contenido = contenido
@@ -109,7 +114,7 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestGif) (*pb.Gif, error)
 		fmt.Println("No se encontró el gif en redis. Debe conectarse a mysql aquí.")
 		end := time.Now()
 		fmt.Println(end.Sub(start))
-		gif, err := GetGifFromDB(mysqluser, mysqlpassword, mysqldatabase,"hola")
+		gif, err := GetGifFromDB(mysqluser, mysqlpassword, mysqldatabase,in.Nombre)
 		if err != nil {
 			return nil, err
 		}
@@ -150,7 +155,7 @@ func (s *server) Top10Gifs(in *pb.RequestFecha, stream pb.Micro_Top10GifsServer)
 	}
 	if len(val) == 0 {
 		var gifs [10]pb.Gif
-		fmt.Println("No se encontró el gif en redis. Debe conectarse a mysql aquí.")
+		fmt.Println("No se encontraron los gifs en redis. Retribuyendo de mysql ..")
 		end := time.Now()
 		fmt.Println(end.Sub(start))
 		gifs, err = RetrieveGifsFromDB(mysqluser, mysqlpassword, mysqldatabase)
