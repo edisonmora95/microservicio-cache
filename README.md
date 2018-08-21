@@ -128,3 +128,43 @@ Para probar con un cliente stub
 ```
 go run grpc/client/main.go
 ```
+## Servidor web
+El servidor web esta hecho en el framework Gin del lenguaje de programación Go.
+Para compilarlo situarse en la ruta ginApp/server y ejecutar
+```
+go build -o app
+```
+De ahi correrlo con 
+```
+./app
+```
+Por defecto correra en el puerto 3000 pero se redireccionara al puerto 80 con nginx.
+Además cabe destacar que debe estar corriendo el microservicio por lo que es necesario abrir otra consola y poner:
+```
+go run grpc/microservice/main.go
+```
+## Nginx
+Para la configuración de Nginx, y una vez instalado este, se necesitan copiar dos archivos de este repositorio ubicados en la carpeta del mismo nombre: nginx.conf y go-app.conf. 
+
+Para el primero moverlo a la ruta /etc/nginx/ pero después de haber hecho un respaldo
+```
+sudo cd /etc/nginx/ && mv nginx.conf nginx.conf.backup
+sudo mv nginx.conf /etc/nginx/
+```
+Para go-app.conf moverlo a /etc/nginx/conf.d
+```
+sudo mv go-app.conf /etc/nginx/conf.d/
+```
+
+## Otros
+Es necesario en este punto llenar tanto redis y mysql una vez instaladas . 
+Para popular redis correr:
+```
+go run store_gifs_to_redis.go
+```
+Para popular mysql correr:
+```
+go run store_gifs_to_mysql.go
+```
+
+**Nota** Para mysql es necesario cambiar las credenciales de acceso según las que el usuario haya puesto. Para eso se cambia eso en dos archivos: store_gifs_to_mysql.go y grpc/microservice/main.go 
