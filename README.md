@@ -62,19 +62,21 @@ sudo systemctl enable redis
 Para instalar mysql primero visitar https://dev.mysql.com/downloads/repo/yum/ 
 Una vez ahi descargar la version para centos7 (linux7)
 ```
-wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+wget https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
+
 ```
 Comprobar la firma y comparar con el sitio web (curiosamente usan md5 un hash que ya ha demostrado vulnerabilidades)
 ```
-md5sum mysql57-community-release-el7-9.noarch.rpm
+md5sum https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
+
 
 Output
-1a29601dc380ef2c7bc25e2a0e25d31e  mysql57-community-release-el7-9.noarch.rpm
+739dc44566d739c5d7b893de96ee6848  mysql80-community-release-el7-1.noarch.rpm
 ```
 Comprobar con el sitio web
 Una vez hecho esto instalar paquete y de ahi podremos acceder a yum para instalar mysql
 ```
-sudo rpm -ivh mysql57-community-release-el7-9.noarch.rpm
+sudo rpm -ivh mysql80-community-release-el7-1.noarch.rpm
 sudo yum install mysql-server
 ```
 
