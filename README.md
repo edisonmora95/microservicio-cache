@@ -104,13 +104,15 @@ sudo firewall-cmd --reload
 ```
 Para que se inicie con el booteo
 ```
-sudo systemctl start nginx
+sudo systemctl enable nginx
 ```
 
 Además un issue que se tuvo cuando se lo configuro como reverse proxy es que linux no dejaba hacer la redirección . Para arreglarlo
 ```
 sudo setsebool httpd_can_network_connect 1 -P 
 ```
+
+**Nota**: En el caso de hacer deploy en amazon AWS es necesario instalar firewalld. Para hacerlo seguir instrucciones de https://www.tecmint.com/fix-firewall-cmd-command-not-found-error/ 
 
 
 ## Microservicio
