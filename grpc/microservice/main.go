@@ -23,7 +23,7 @@ const (
 	port = ":50051"
 	//MYSQL constants
 	mysqluser = "root"
-	mysqlpassword = "sistDisrib95mrv&"
+	mysqlpassword = "fcdtsagot"
 	mysqldatabase = "topgifs"
 )
 
@@ -156,9 +156,10 @@ func (s *server) Top10Gifs(in *pb.RequestFecha, stream pb.Micro_Top10GifsServer)
 	if len(val) == 0 {
 		var gifs [10]pb.Gif
 		fmt.Println("No se encontraron los gifs en redis. Retribuyendo de mysql ..")
-		end := time.Now()
-		fmt.Println(end.Sub(start))
 		gifs, err = RetrieveGifsFromDB(mysqluser, mysqlpassword, mysqldatabase)
+		end := time.Now()
+		fmt.Println("Tiempo total")
+		fmt.Println(end.Sub(start))
 		for _, gif := range gifs {
 			// Envia uno por uno los gifs por el stream
 			if err := stream.Send(&gif); err != nil {
@@ -166,6 +167,10 @@ func (s *server) Top10Gifs(in *pb.RequestFecha, stream pb.Micro_Top10GifsServer)
 			}
 		}
 		return nil	
+	} else {
+		fmt.Println("Tiempo total")
+		end := time.Now()
+		fmt.Println(end.Sub(start))
 	}
 	var gif pb.Gif
 	for _, gifStr := range val {
