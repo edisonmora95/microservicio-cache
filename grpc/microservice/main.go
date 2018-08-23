@@ -112,15 +112,17 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestGif) (*pb.Gif, error)
 	}
 	if len(val) == 0 /*|| val == nil*/{
 		fmt.Println("No se encontró el gif en redis. Debe conectarse a mysql aquí.")
+		gif, err := GetGifFromDB(mysqluser, mysqlpassword, mysqldatabase,in.Nombre)
 		end := time.Now()
 		fmt.Println(end.Sub(start))
-		gif, err := GetGifFromDB(mysqluser, mysqlpassword, mysqldatabase,in.Nombre)
 		if err != nil {
 			return nil, err
 		}
 		return &gif, nil	
-	}	
-
+	} else {
+		end := time.Now()
+		fmt.Println(end.Sub(start))
+	}
 	for _, gifStr := range val {		
 		err := json.Unmarshal([]byte(gifStr), &tempGif) // Los gifs se encuentran serializados en redis, por lo que hay que deserializar
 		if err != nil {
@@ -128,14 +130,10 @@ func (s *server) GetGif(ctx context.Context, in *pb.RequestGif) (*pb.Gif, error)
 			return &gif, err
 		}
 		if tempGif.Titulo == in.Nombre {
-			end := time.Now()
-			fmt.Println(end.Sub(start))
 			gif = tempGif
 			return &gif, nil
 		}
 	}
-	end := time.Now()
-	fmt.Println(end.Sub(start))
 	return &gif, errors.New("Gif no encontrado")
 }
 
