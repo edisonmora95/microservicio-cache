@@ -23,7 +23,7 @@ const (
 	port = ":50051"
 	//MYSQL constants
 	mysqluser = "root"
-	mysqlpassword = "fcdtsagot"
+	mysqlpassword = "sistDisrib95mrv&"
 	mysqldatabase = "topgifs"
 )
 
