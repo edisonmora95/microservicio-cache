@@ -163,13 +163,20 @@ func (s *server) Top10Gifs(in *pb.RequestFecha, stream pb.Micro_Top10GifsServer)
 			if err := stream.Send(&gif); err != nil {
 				return err
 			}
+			gifMarshal, err := json.Marshal(gif)
+			if err != nil {
+				fmt.Errorf("Error al serializar &v", err)
+				return err
+			}
+			client.LPush(in.Fecha, gifMarshal)
 		}
-		return nil	
+		return nil
 	} else {
 		fmt.Println("Tiempo total")
 		end := time.Now()
 		fmt.Println(end.Sub(start))
 	}
+	fmt.Println("Si están en redis")
 	var gif pb.Gif
 	for _, gifStr := range val {
 		err := json.Unmarshal([]byte(gifStr), &gif) // Los gifs se encuentran serializados en redis, por lo que hay que deserializar
